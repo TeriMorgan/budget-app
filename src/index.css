@@ -1,14 +1,121 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container {
+  background-color: #dddddd;
+  text-align: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.flex-container {
+  background-color: #dddddd;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  color: #2492d0;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.sub-container {
+  xborder: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 30%;
+  padding: 15px;
+}
+
+label {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #ea9242;
+}
+
+button {
+  width: 15%;
+  height: 30px;
+  background-color: #2492d0;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 30px;
+}
+
+button:hover {
+  background-color: #ea9242;
+}
+
+.row-container {
+  height: 30px;
+  margin-bottom: 15px;
+}
+.row-container>input {
+  width: 80%;
+  height: 100%;
+}
+
+.row-container>button {
+  width: 20%;
+  height: 100%;
+}
+
+select {
+  width: 100%;
+  height: 30px;
+  outline: none;
+}
+
+@media(max-width: 760px) {
+  .flex-container {
+      flex-direction: column;
+  }
+  .sub-container {
+      width: 100%;
+  }
+  select {
+      height: 30px;
+  }
+  .logo-container {
+      align-items: center;
+  }
+  input {
+      width: 75%;
+      height: 30px;
+  }
+  button {
+      height: 30px;
+  }
+}
+
+@media(max-width: 400px) {
+  .flex-container {
+      flex-direction: column;
+  }
+  .sub-container {
+      width: 100%;
+  }
+  select {
+      width: 100%;
+  }
+  .logo-container {
+      align-items: center;
+  }
+  input {
+      width: 100%;
+  }
+  img {
+      width: 50%;
+  }
 }
