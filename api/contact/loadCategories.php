@@ -1,15 +1,6 @@
 <?php
     header("Access-Control-Allow-Origin: *");
-    //$rest_json = file_get_contents("php://input");
-    //$_POST = json_decode($rest_json, true);
 
-    //if (empty($_POST['userInput'])) die();
-
-    //if ($_POST)
-        //{
-        // set response code - 200 OK
-        http_response_code(200);
-                    //$category = $_POST["userInput"];
                 
                     $servername = "208.117.38.17";
                     $username = "terimotj_root";

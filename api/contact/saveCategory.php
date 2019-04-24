@@ -25,24 +25,26 @@
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     } 
-                    echo "Connected successfully<br>";
 
                     // Create a record
                     
                     // TODO: Altered SQL query to pull back new record id
                     //   Return this to the user
                     $query = "INSERT INTO $tbl (`category`) VALUES"
-                        . "('" . $category ."'); SELECT MAX(cat_id) FROM $tbl;";        // TODO: It's giving a syntax error. Maybe because of chaining commands?   
-                    $return = mysqli_query($conn, $query) or die (mysqli_error($conn));     // Maybe the wrong max id syntax?
+                        . "('" . $category ."');";          
+                    $return = mysqli_query($conn, $query) or die (mysqli_error($conn));     
                     $row= mysqli_fetch_array($return);
-                    
-                    // TODO: return json value of new id - see loadCategories.php model
-                    echo "<h2>" . $category . " was added successfully.</h2><br>";
-                    
-                    echo json_encode(array(
-                        "sent" => true,
-                        "msg" => $category
-                    )); 
+
+                    // TODO: return json value of new id - see loadCategories.php model          
+                    $query = "SELECT MAX(cat_id) as newId FROM $tbl;";
+                    $success = $conn->query($query);   
+                    if ($success->num_rows > 0) {
+                        while($row = $success->fetch_array()) {
+                            echo json_encode([ "id" => $row[newId] ]);
+                        }
+                    } else {
+                        echo json_encode([ "newId" => "" ]);
+                    }
             } else {
 
             // tell the user about error

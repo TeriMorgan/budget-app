@@ -4,7 +4,7 @@ import axios from 'axios';
 // const HOST = 'http://localhost';
 const HOST = 'http://terimorgan.com';
  
-const API_CREATE_CATEGORY = HOST + '/api/contact/divvy-app/category.php';
+const API_SAVE_CATEGORY = HOST + '/api/contact/divvy-app/saveCategory.php';
 const API_LOAD_CATEGORIES = HOST + '/api/contact/divvy-app/loadCategories.php';
 
 class Select extends Component {
@@ -28,20 +28,19 @@ class Select extends Component {
     saveCategoryInDatabase = () => {
         axios({
           method: 'post',
-          url: `${API_CREATE_CATEGORY}`,
+          url: `${API_SAVE_CATEGORY}`,
           headers: {'content-type': 'application/json'},
           data: this.state
         })
-        .then(result => {
+        .then(result => {                                        
             return result.data.newId;
-            //   this.setState({
-            //     categorySaved:result.data.sent
-            //   })
+        //   this.setState({
+        //     categorySaved:result.data.sent
+        //   })
         })
         .catch(
             error => {
                 return -1;
-                // this.setState({error: error.message})
             }
         );
         console.log("sCID ran");
@@ -49,22 +48,32 @@ class Select extends Component {
 
     handleCreateCategory = event => {
         const { categories, userInput } = this.state;
-        
-        // TODO: check if categories contains the userInput (case-insensitive)
-        //  Use an array method to check each elment of the array and compare it to the userInput
-        if (categories.indexOf(userInput.toLowerCase()) === -1) {
-            const newId = this.saveCategoryInDatabase();
+        const userInputLC = userInput.toLowerCase();
+
+        //  Compare userInput to each array element
+        var index = -1;
+        for (var i = 0; i < categories.length; i++) {
+            const categoryNameLC = categories[i].name.toLowerCase();
+            if (categoryNameLC !== userInputLC) {
+                continue;
+            } else {
+                index = i;
+                alert("Category already exists");  
+            }
+        }  
+        // Add userInput to array only if it's a new category
+        if (index === -1) {
+            const newId = this.saveCategoryInDatabase();                     
             if (newId !== -1) {
-                categories.push({ name: userInput, id: newId });
+                categories.push({ id: newId, name: userInput });
             }
             else {
-                // TODO: What should happen if there was an error saving the new category
+                alert("There was a problem retrieving the id from the database");
             }
-        } else {
-            alert("Category already exists");    
-        }       
+        }
+
         this.setState({
-            categories,              //same as categories: categories
+            categories,              
             userInput: ''
         },
         () => console.log(this.state));
@@ -74,7 +83,6 @@ class Select extends Component {
         axios({
             method: 'get',
             url: `${API_LOAD_CATEGORIES}`
-            //headers: {'content-type': 'application/json'}
           })
           .then(result => {
             const {categories} = result.data;
@@ -103,7 +111,8 @@ class Select extends Component {
             </input>
             <button onClick={this.handleCreateCategory}>Create</button>
         </div>
-        <select placeholder="Select a category">
+        <select>
+            <option value="">Select a category</option>
             {categories.map(category => (
                 <option value={category.id}>{category.name}</option>
             ))}
