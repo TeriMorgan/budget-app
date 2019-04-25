@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 
-class TransactionInput extends Component {
+class TransactionDateInput extends Component {
   constructor() {
     super()
     this.state = {
@@ -49,6 +49,6 @@ class TransactionInput extends Component {
   }
 }
 
-export default TransactionInput
+export default TransactionDateInput
 
     

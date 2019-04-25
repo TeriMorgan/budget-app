@@ -36,7 +36,7 @@ class Select extends Component {
             const {data: {newId}} = result;
             this.updateCategoriesState(newId);
         })
-        .catch(ex =>{
+        .catch(ex => {
             alert("The category cannot be saved.");
             console.warn(ex);
         });

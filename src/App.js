@@ -5,7 +5,7 @@ import Logo from './Components/Logo';
 import Select from './Components/Select';
 import axios from 'axios';
 
-const API_SAVE_TRANSACTION  = 'http://terimorgan.com/api/contact/divvy-app/saveCategory.php';
+const API_SAVE_TRANSACTION  = 'http://terimorgan.com/api/contact/divvy-app/saveTransaction.php';
 
 class App extends Component {
 
@@ -39,16 +39,12 @@ class App extends Component {
         data: this.state
       })
       .then(result => {                                        
-          return result.data.newId;           // TODO: What goes here?
-      //   this.setState({  
-      //     categorySaved:result.data.sent
-      //   })
+          return result.data;           // TODO: What goes here?
       })
-      // .catch(                                And here?
-      //     error => {
-      //         return -1;
-      //     }
-      // );
+      .catch(ex => {
+        alert("The category cannot be saved.");
+        console.warn(ex);
+      });
       console.log("handleSubmit ran");
     }
 

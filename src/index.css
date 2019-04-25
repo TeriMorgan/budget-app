@@ -18,12 +18,15 @@ body {
 }
 
 .sub-container {
-  xborder: 1px solid red;
   display: flex;
   flex-direction: column;
   align-items: left;
   width: 30%;
   padding: 15px;
+}
+
+.logo-container {
+  align-items: center;
 }
 
 label {
