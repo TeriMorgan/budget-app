@@ -26,16 +26,13 @@
                         die("Connection failed: " . $conn->connect_error);
                     } 
 
-                    // Create a record
-                    
-                    // TODO: Altered SQL query to pull back new record id
-                    //   Return this to the user
+                    // Create a category record in database
                     $query = "INSERT INTO $tbl (`category`) VALUES"
                         . "('" . $category ."');";          
                     $return = mysqli_query($conn, $query) or die (mysqli_error($conn));     
                     $row= mysqli_fetch_array($return);
 
-                    // TODO: return json value of new id - see loadCategories.php model          
+                    // TODO: still not returning the newId          
                     $query = "SELECT MAX(cat_id) as newId FROM $tbl;";
                     $success = $conn->query($query);   
                     if ($success->num_rows > 0) {
