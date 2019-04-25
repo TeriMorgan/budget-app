@@ -37,7 +37,7 @@
                     $success = $conn->query($query);   
                     if ($success->num_rows > 0) {
                         while($row = $success->fetch_array()) {
-                            echo json_encode([ "id" => $row[newId] ]);
+                            echo json_encode([ "newId" => $row[newId] ]);
                         }
                     } else {
                         echo json_encode([ "newId" => "" ]);
