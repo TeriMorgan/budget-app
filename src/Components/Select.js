@@ -22,10 +22,7 @@ class Select extends Component {
     userEnterCategory = event => {
         this.setState({
             userInput: event.target.value,
-        }
-        // ,
-        // () => console.log(this.state));
-        )}
+        })}
 
     saveCategoryInDatabase = () => {
         axios({
@@ -42,7 +39,6 @@ class Select extends Component {
             alert("The category cannot be saved.");
             console.warn(ex);
         });
-        // console.log("sCID ran");
       }
 
     updateCategoriesState = (newId) => {
@@ -58,11 +54,8 @@ class Select extends Component {
             categories,              
             userInput: '',
             selectedCategoryId: newId
-        },
-        //this.updateFormState()
-        // ,
-        // () => console.log(this.state));
-        )}
+        })
+    }
 
     handleCreateCategory = event => {
         const { categories, userInput } = this.state;
@@ -91,7 +84,6 @@ class Select extends Component {
               categories
             })
           })
-        //   console.log("loadCategories ran");
     }
     
     componentDidMount() {

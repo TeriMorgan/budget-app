@@ -25,13 +25,12 @@ class Form extends Component {
       data: this.state
     })
     .then(result => {                                        
-        return result.data;           // TODO: What goes here?
+        return result.data;           // Do I need this?
     })
     .catch(ex => {
       alert("The category cannot be saved.");
       console.warn(ex);
     });
-    // console.log("handleSubmit ran");
   }
 
   handleTransactionDate = TransDateInputState => {
