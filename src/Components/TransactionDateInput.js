@@ -2,27 +2,35 @@ import React, { Component } from 'react'
 
 
 class TransactionDateInput extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
         amount: "",
         date: ""
     }
   }
 
-  userEnterTransaction = event => {
-      this.setState({
-        amount: event.target.value
-      })
-      console.log(this.state);
-    }
-  
-    userEnterDate = event => {
-      this.setState({
-        date: event.target.value
-      })
-      console.log(this.state);
-    }
+  handleUserEnterTransaction = event => {
+    this.setState({
+      amount: event.target.value
+    }, () => {
+      this.updateFormState();
+    } 
+  )}
+
+  handleUserEnterDate = event => {        
+    this.setState({                       
+      date: event.target.value
+    }, () => {
+      this.updateFormState();
+    } 
+  )}
+
+  updateFormState() {
+		console.log(this.state);
+    this.props.handleTransactionDate(this.state);
+  }
+
       
   
   render() {
@@ -33,14 +41,14 @@ class TransactionDateInput extends Component {
             type="text" 
             name="transaction" 
             placeholder="Enter transaction" 
-            onChange={this.userEnterTransaction} 
+            onChange={this.handleUserEnterTransaction} 
             required>
         </input>
         <label>Date:</label>
         <input 
             type="date" 
             name="date"
-            onChange = {this.userEnterDate}
+            onChange = {this.handleUserEnterDate}
             required>
 
         </input>

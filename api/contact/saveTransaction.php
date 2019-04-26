@@ -11,7 +11,6 @@
             http_response_code(200);
                     $amount = $_POST["amount"];
                     $date = $_POST["date"];
-                    //$category = $_POST["category"];       TODO: Figure out how to get the cat_id and make it optional
                     if ($_POST["cat_id"]) {
                         $cat_id = $_POST["cat_id"];
                     }           
@@ -30,11 +29,8 @@
                         die("Connection failed: " . $conn->connect_error);
                     } 
                     
-                    echo $amount . " and '". $date . "'";
 
-                    // Create a transaction record in database 
-                    // $query = "INSERT INTO $tbl (`amount`, `date`, `cat_id`) SELECT "
-                    //          . $amount . ", '" . $date . "', cat_id FROM Categories WHERE category = \"" . $category . "\";";           
+                    // Create a transaction record in database  
                     if ($_POST["cat_id"]) {
                         $query = "INSERT INTO $tbl (`amount`, `date`,`cat_id`) VALUES"
                         . "(" . $amount .", '". $date ."', " . $cat_id . ");";

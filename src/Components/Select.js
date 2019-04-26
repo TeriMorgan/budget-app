@@ -14,16 +14,18 @@ class Select extends Component {
         userInput: '',
         categories: [],
         error: null,
-        categorySaved: false
+        categorySaved: false,
+        selectedCategoryId: ''
       }
     }
 
     userEnterCategory = event => {
         this.setState({
             userInput: event.target.value,
-        },
-        () => console.log(this.state));
-    }
+        }
+        // ,
+        // () => console.log(this.state));
+        )}
 
     saveCategoryInDatabase = () => {
         axios({
@@ -40,7 +42,7 @@ class Select extends Component {
             alert("The category cannot be saved.");
             console.warn(ex);
         });
-        console.log("sCID ran");
+        // console.log("sCID ran");
       }
 
     updateCategoriesState = (newId) => {
@@ -57,8 +59,10 @@ class Select extends Component {
             userInput: '',
             selectedCategoryId: newId
         },
-        () => console.log(this.state));
-    }
+        //this.updateFormState()
+        // ,
+        // () => console.log(this.state));
+        )}
 
     handleCreateCategory = event => {
         const { categories, userInput } = this.state;
@@ -87,18 +91,25 @@ class Select extends Component {
               categories
             })
           })
-          console.log("loadCategories ran");
+        //   console.log("loadCategories ran");
     }
     
     componentDidMount() {
         this.loadCategories();
     }
     
-  onSelectCategoryChange = ({ target: { value }}) => {      // Same as in userEnterCategory where I used event and event.target.value
-      this.setState({
-          selectedCategoryId: value
-      });
-  }  
+    onSelectCategoryChange = event => {      
+        this.setState({
+            selectedCategoryId: event.target.value
+        }, () => {
+            console.log(this.state);
+            this.updateFormState();
+    })}
+
+    updateFormState() {
+        console.log(this.state);
+        this.props.handleCatId(this.state);
+    }
 
   render() {
     const {userInput, categories, selectedCategoryId} = this.state;
@@ -116,8 +127,8 @@ class Select extends Component {
         </div>
         <select value={selectedCategoryId} onChange={this.onSelectCategoryChange}>
             <option value="">Select a category</option>
-            {categories.map(category => (
-                <option value={category.id}>{category.name}</option>
+            {categories.map((category) => (
+                <option value={category.id} key={category.id}>{category.name}</option>
             ))}
         </select>
       </div>
