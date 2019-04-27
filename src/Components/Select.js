@@ -42,20 +42,22 @@ class Select extends Component {
       }
 
     updateCategoriesState = (newId) => {
-            const {categories, userInput} = this.state;
-            if (newId !== -1) {
-                categories.push({ id: newId, name: userInput });
-            }
-            else {
-                alert("There was a problem retrieving the id from the database");
-            }
+        const {categories, userInput} = this.state;
+        if (newId !== -1) {
+            categories.push({ id: newId, name: userInput });
+        }
+        else {
+            alert("There was a problem retrieving the id from the database");
+        }
 
         this.setState({
             categories,              
             userInput: '',
             selectedCategoryId: newId
-        })
-    }
+        }, () => {
+            console.log(this.state);
+            this.updateFormState();
+        })}
 
     handleCreateCategory = event => {
         const { categories, userInput } = this.state;

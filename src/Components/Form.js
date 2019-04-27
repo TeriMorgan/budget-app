@@ -24,8 +24,8 @@ class Form extends Component {
       headers: {'content-type': 'application/json'},
       data: this.state
     })
-    .then(result => {                                        
-        return result.data;           // Do I need this?
+    .then(result => {                                  //Do I need to do something with result?      
+        this.clearState();
     })
     .catch(ex => {
       alert("The category cannot be saved.");
@@ -49,15 +49,30 @@ class Form extends Component {
     },
     () => console.log(this.state));
   }
+
+  clearState = () => {
+    this.setState({
+      amount: "",
+      date: "",
+      cat_id: ""
+    }, () => {
+      console.log(this.state)
+    })}
   
   render() {
+    const {amount, date, cat_id} = this.state;
     return (
       <div>
         <div className="container">
         <div className='flex-container'>   
             <Logo/>
-            <TransactionDateInput handleTransactionDate={this.handleTransactionDate}/>
-            <Select handleCatId={this.handleCatId}/>
+            <TransactionDateInput 
+              handleTransactionDate={this.handleTransactionDate}
+              amount={amount}
+              date={date}/>
+            <Select 
+              handleCatId={this.handleCatId}
+              selectedCategoryId={cat_id}/>
         </div>
         <button type="submit" onClick={this.handleSubmit}>Submit</button>
     </div>
