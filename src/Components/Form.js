@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Logo from "./Logo";
-import TransactionDateInput from "./TransactionDateInput";
+import TransactionInput from "./TransactionInput";
 import Select from "./Select";
 import axios from "axios";
+import DateInput from "./DateInput";
 
 const API_SAVE_TRANSACTION =
   "http://terimorgan.com/api/contact/divvy-app/saveTransaction.php";
@@ -36,12 +37,21 @@ class Form extends Component {
       });
   };
 
-  handleTransactionDate = TransDateInputState => {
-    console.log(TransDateInputState);
+  handleTransaction = State => {
+    console.log(State);
     this.setState(
       {
-        amount: TransDateInputState.amount,
-        date: TransDateInputState.date
+        amount: State.amount
+      },
+      () => console.log(this.state)
+    );
+  };
+
+  handleDate = State => {
+    console.log(State);
+    this.setState(
+      {
+        date: State.date
       },
       () => console.log(this.state)
     );
@@ -76,11 +86,13 @@ class Form extends Component {
       <div className="container">
         <div className="flex-container">
           <Logo />
-          <TransactionDateInput
-            handleTransactionDate={this.handleTransactionDate}
-            amount={amount}
-            date={date}
-          />
+          <div className="sub-container">
+            <TransactionInput
+              handleTransaction={this.handleTransaction}
+              amount={amount}
+            />
+            <DateInput handleDate={this.handleDate} date={date} />
+          </div>
           <Select handleCatId={this.handleCatId} selectedCategoryId={cat_id} />
         </div>
         <button type="submit" onClick={this.handleSubmit}>
