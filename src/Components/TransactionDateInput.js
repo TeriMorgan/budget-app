@@ -1,62 +1,47 @@
-import React, { Component } from 'react'
-
+import React, { Component } from "react";
 
 class TransactionDateInput extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-        amount: "",
-        date: ""
-    }
-  }
-
   handleUserEnterTransaction = event => {
-    this.setState({
-      amount: event.target.value
-    }, () => {
-      this.updateFormState();
-    } 
-  )}
+    const amount = event.target.value;
 
-  handleUserEnterDate = event => {        
-    this.setState({                       
-      date: event.target.value
-    }, () => {
-      this.updateFormState();
-    } 
-  )}
+    this.props.handleTransactionDate({
+      amount,
+      date: this.props.date
+    });
+  };
 
-  updateFormState() {
-		console.log(this.state);
-    this.props.handleTransactionDate(this.state);
-  }
+  handleUserEnterDate = event => {
+    const date = event.target.value;
 
-      
-  
+    this.props.handleTransactionDate({
+      date,
+      amount: this.props.amount
+    });
+  };
+
   render() {
     return (
       <div className="sub-container">
         <label>Transaction:</label>
-        <input 
-            type="text" 
-            name="transaction" 
-            placeholder="Enter transaction" 
-            onChange={this.handleUserEnterTransaction} 
-            required>
-        </input>
+        <input
+          value={this.props.amount}
+          type="text"
+          name="transaction"
+          placeholder="Enter transaction"
+          onChange={this.handleUserEnterTransaction}
+          required
+        />
         <label>Date:</label>
-        <input 
-            type="date" 
-            name="date"
-            onChange = {this.handleUserEnterDate}
-            required>
-
-        </input>
+        <input
+          value={this.props.date}
+          type="date"
+          name="date"
+          onChange={this.handleUserEnterDate}
+          required
+        />
       </div>
-    )
+    );
   }
 }
 
-export default TransactionDateInput
-
-    
+export default TransactionDateInput;

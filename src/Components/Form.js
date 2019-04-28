@@ -27,6 +27,7 @@ class Form extends Component {
     })
       .then(result => {
         //Do I need to do something with result?
+        console.log(result);
         this.clearState();
       })
       .catch(ex => {
@@ -45,14 +46,6 @@ class Form extends Component {
       () => console.log(this.state)
     );
   };
-
-  // handleCatId = SelectState => {
-  //   console.log(SelectState);
-  //   this.setState({
-  //     cat_id: SelectState.selectedCategoryId
-  //   },
-  //   () => console.log(this.state));
-  // }
 
   handleCatId = selectedCategoryId => {
     console.log(selectedCategoryId);
