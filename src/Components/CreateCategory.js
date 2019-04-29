@@ -5,16 +5,13 @@ import axios from "axios";
 const HOST = "http://terimorgan.com";
 
 const API_SAVE_CATEGORY = HOST + "/api/contact/divvy-app/saveCategory.php";
-const API_LOAD_CATEGORIES = HOST + "/api/contact/divvy-app/loadCategories.php";
 
-class Select extends Component {
+class CreateCategory extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userInput: "",
-      categories: [],
-      error: null,
-      categorySaved: false
+      categories: []
     };
   }
 
@@ -22,6 +19,22 @@ class Select extends Component {
     this.setState({
       userInput: event.target.value
     });
+  };
+
+  handleCreateCategory = event => {
+    const { categories, userInput } = this.state;
+    const userInputLC = userInput.toLowerCase();
+
+    //  Compare userInput to each array element
+    for (let i = 0; i < categories.length; i++) {
+      const categoryNameLC = categories[i].name.toLowerCase();
+      if (categoryNameLC === userInputLC) {
+        alert("Category already exists");
+        return;
+      }
+    }
+    // Add userInput to array only if it's a new category
+    this.saveCategoryInDatabase();
   };
 
   saveCategoryInDatabase = () => {
@@ -63,48 +76,10 @@ class Select extends Component {
     );
   };
 
-  handleCreateCategory = event => {
-    const { categories, userInput } = this.state;
-    const userInputLC = userInput.toLowerCase();
-
-    //  Compare userInput to each array element
-    for (let i = 0; i < categories.length; i++) {
-      const categoryNameLC = categories[i].name.toLowerCase();
-      if (categoryNameLC === userInputLC) {
-        alert("Category already exists");
-        return;
-      }
-    }
-    // Add userInput to array only if it's a new category
-    this.saveCategoryInDatabase();
-  };
-
-  loadCategories() {
-    axios({
-      method: "get",
-      url: `${API_LOAD_CATEGORIES}`
-    }).then(result => {
-      const { categories } = result.data;
-      this.setState({
-        categories
-      });
-    });
-  }
-
-  componentDidMount() {
-    this.loadCategories();
-  }
-
-  onSelectCategoryChange = event => {
-    const selectedCategoryId = event.target.value;
-    this.props.handleCatId(selectedCategoryId);
-  };
-
   render() {
-    const { userInput, categories } = this.state;
-    const { selectedCategoryId } = this.props;
+    const { userInput } = this.state;
     return (
-      <div className="sub-container">
+      <div>
         <label>Category:</label>
         <div className="row-container">
           <input
@@ -115,20 +90,9 @@ class Select extends Component {
           />
           <button onClick={this.handleCreateCategory}>Create</button>
         </div>
-        <select
-          value={selectedCategoryId}
-          onChange={this.onSelectCategoryChange}
-        >
-          <option value="">Select a category</option>
-          {categories.map(category => (
-            <option value={category.id} key={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
       </div>
     );
   }
 }
 
-export default Select;
+export default CreateCategory;

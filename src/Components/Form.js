@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Logo from "./Logo";
 import TransactionInput from "./TransactionInput";
-import Select from "./Select";
+import CreateCategory from "./CreateCategory";
 import axios from "axios";
 import DateInput from "./DateInput";
+import SelectCategory from "./SelectCategory";
 
 const API_SAVE_TRANSACTION =
   "http://terimorgan.com/api/contact/divvy-app/saveTransaction.php";
@@ -93,7 +94,13 @@ class Form extends Component {
             />
             <DateInput handleDate={this.handleDate} date={date} />
           </div>
-          <Select handleCatId={this.handleCatId} selectedCategoryId={cat_id} />
+          <div className="sub-container">
+            <CreateCategory handleCatId={this.handleCatId} />
+            <SelectCategory
+              handleCatId={this.handleCatId}
+              selectedCategoryId={cat_id}
+            />
+          </div>
         </div>
         <button type="submit" onClick={this.handleSubmit}>
           Submit
