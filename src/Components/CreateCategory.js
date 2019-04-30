@@ -27,7 +27,7 @@ class CreateCategory extends Component {
 
     //  Compare userInput to each array element
     for (let i = 0; i < categories.length; i++) {
-      const categoryNameLC = categories[i].name.toLowerCase();
+      const categoryNameLC = categories[i].label.toLowerCase();
       if (categoryNameLC === userInputLC) {
         alert("Category already exists");
         return;
@@ -59,7 +59,7 @@ class CreateCategory extends Component {
   updateCategoriesState = newId => {
     const { categories, userInput } = this.state;
     if (newId !== -1) {
-      categories.push({ id: newId, name: userInput });
+      categories.push({ value: newId, label: userInput });
     } else {
       alert("There was a problem retrieving the id from the database");
     }

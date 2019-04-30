@@ -5,6 +5,7 @@ import CreateCategory from "./CreateCategory";
 import axios from "axios";
 import DateInput from "./DateInput";
 import SelectCategory from "./SelectCategory";
+import SelectReact from "./SelectReact";
 
 const API_SAVE_TRANSACTION =
   "http://terimorgan.com/api/contact/divvy-app/saveTransaction.php";
@@ -73,7 +74,7 @@ class Form extends Component {
       {
         amount: "",
         date: "",
-        cat_id: ""
+        cat_id: undefined
       },
       () => {
         console.log(this.state);
@@ -104,7 +105,7 @@ class Form extends Component {
               </div>
               <div className="col-container fifty">
                 <CreateCategory handleCatId={this.handleCatId} />
-                <SelectCategory
+                <SelectReact
                   handleCatId={this.handleCatId}
                   selectedCategoryId={cat_id}
                 />

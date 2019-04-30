@@ -29,7 +29,7 @@
                     if ($success->num_rows > 0) {
                 
                         while($row = $success->fetch_array()) {
-                            array_push($resultArray, ["id" => $row["cat_id"], "name" => $row["category"]]);
+                            array_push($resultArray, ["value" => $row["cat_id"], "label" => $row["category"]]); //TODO: remove when done troubleshooting
                         }
 
                         echo json_encode([ "categories" => $resultArray ]); 
