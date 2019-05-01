@@ -87,19 +87,29 @@ class Form extends Component {
       <div className="container">
         <div className="flex-container">
           <Logo />
-          <div className="sub-container">
-            <TransactionInput
-              handleTransaction={this.handleTransaction}
-              amount={amount}
-            />
-            <DateInput handleDate={this.handleDate} date={date} />
-          </div>
-          <div className="sub-container">
-            <CreateCategory handleCatId={this.handleCatId} />
-            <SelectCategory
-              handleCatId={this.handleCatId}
-              selectedCategoryId={cat_id}
-            />
+          <div className="sub-container seventy">
+            <h2>Enter a transaction:</h2>
+            <div className="form-container">
+              <div className="col-container fifty">
+                <TransactionInput
+                  label="Transaction:"
+                  handleTransaction={this.handleTransaction}
+                  amount={amount}
+                />
+                <DateInput
+                  label="Date:"
+                  handleDate={this.handleDate}
+                  date={date}
+                />
+              </div>
+              <div className="col-container fifty">
+                <CreateCategory handleCatId={this.handleCatId} />
+                <SelectCategory
+                  handleCatId={this.handleCatId}
+                  selectedCategoryId={cat_id}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <button type="submit" onClick={this.handleSubmit}>

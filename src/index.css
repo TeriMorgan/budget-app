@@ -2,30 +2,71 @@ body {
   background-color: #f0f0f0;
 }
 
+div {
+  box-sizing: border-box;
+}
+h2 {
+  font-size: 1.5em;
+  color: #ea9242;
+}
+
 .container {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .flex-container {
   display: flex;
   justify-content: center;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
   color: #2492d0;
-  font-size: 16pt;
+  font-size: 1.15em;
   font-weight: bold;
+  text-align: left;
+}
+
+.column {
+  flex-direction: column;
 }
 
 .sub-container {
   display: flex;
   flex-direction: column;
   align-items: left;
-  width: 30%;
+  padding: 15px;
+  text-align: left;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.col-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
   padding: 15px;
 }
 
+.seventy {
+  width: 70%;
+}
+
+.fifty {
+  width: 50%;
+}
+
+.thirty-three {
+  width: 33%;
+}
+
 .logo-container {
+  display: flex;
+  width: 30%;
+  padding: 15px;
   align-items: center;
 }
 
@@ -66,12 +107,12 @@ button:hover {
   height: 30px;
   margin-bottom: 15px;
 }
-.row-container>input {
+.row-container > input {
   width: 80%;
   height: 100%;
 }
 
-.row-container>button {
+.row-container > button {
   width: 20%;
   height: 100%;
 }
@@ -82,45 +123,53 @@ select {
   outline: none;
 }
 
-@media(max-width: 760px) {
+@media (max-width: 760px) {
+  .form-container,
   .flex-container {
-      flex-direction: column;
-  }
-  .sub-container {
-      width: 100%;
-  }
-  select {
-      height: 30px;
+    flex-direction: column;
   }
   .logo-container {
-      align-items: center;
+    width: 100%;
+  }
+  .col-container {
+    width: 100%;
+  }
+  select {
+    height: 30px;
+  }
+  .logo-container {
+    align-items: center;
   }
   input {
-      width: 75%;
-      height: 30px;
+    width: 75%;
+    height: 30px;
   }
   button {
-      height: 30px;
+    height: 30px;
   }
 }
 
-@media(max-width: 400px) {
+@media (max-width: 400px) {
+  .form-container,
   .flex-container {
-      flex-direction: column;
-  }
-  .sub-container {
-      width: 100%;
-  }
-  select {
-      width: 100%;
+    flex-direction: column;
   }
   .logo-container {
-      align-items: center;
+    width: 100%;
+  }
+  .col-container {
+    width: 100%;
+  }
+  select {
+    width: 100%;
+  }
+  .logo-container {
+    align-items: center;
   }
   input {
-      width: 100%;
+    width: 100%;
   }
   img {
-      width: 50%;
+    width: 50%;
   }
 }

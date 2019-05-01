@@ -12,12 +12,12 @@ class TransactionInput extends Component {
   render() {
     return (
       <div>
-        <label>Transaction:</label>
+        <label>{this.props.label}</label>
         <input
           value={this.props.amount}
           type="text"
           name="transaction"
-          placeholder="Enter transaction"
+          placeholder="Enter amount"
           onChange={this.handleUserEnterTransaction}
           required
         />

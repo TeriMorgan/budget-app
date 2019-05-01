@@ -12,7 +12,7 @@ class DateInput extends Component {
   render() {
     return (
       <div>
-        <label>Date:</label>
+        <label>{this.props.label}</label>
         <input
           value={this.props.date}
           type="date"
