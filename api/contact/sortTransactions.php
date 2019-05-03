@@ -73,7 +73,7 @@
                         echo json_encode([ "results" => $resultArray ]); 
                 
                     } else {
-                        echo json_encode([ "results" => "There are no transactions that meet your search criteria." ]);
+                        echo json_encode([ "results" => [] ]);
                     }
                 } else {
                     echo "Post is empty";

@@ -104,7 +104,7 @@ class SortingForm extends Component {
         dateEnd: "",
         amountMin: "",
         amountMax: "",
-        category: ""
+        cat_id: ""
       },
       () => {
         console.log(this.state);
