@@ -5,8 +5,8 @@
 
         //if (empty($_POST['amount']) && empty($_POST['date'])) die();
 
-        if ($_POST)
-            {
+        if ($_POST) {
+
             // set response code - 200 OK
             http_response_code(200);
 
@@ -42,32 +42,40 @@
                     } 
                     
                     // Select statement to bring back sorted transactions
-                    $query = "SELECT amount, date, $tbl2.category" 
-                        . " FROM $tbl, $tbl2"
-                        . " WHERE $tbl.cat_id = $tbl2.cat_id";
+                    $query = "SELECT $tbl.amount, $tbl.date, $tbl2.category" 
+                        . " FROM $tbl"
+                        . " LEFT JOIN $tbl2 on $tbl2.cat_id = $tbl.cat_id WHERE";         
                     
                     if ($_POST["dateStart"] && $_POST["dateEnd"]) {
-                        $query += " AND date > $dateStart AND date < $dateEnd";
+                        $query .= " date BETWEEN '$dateStart' AND '$dateEnd' AND";
                     }
                     if ($_POST["amountMin"] && $_POST["amountMax"]) {
-                        $query += " AND amount > $amountMin AND amoung < $amountMax";
-                    }
+                        $query .= " amount BETWEEN $amountMin AND $amountMax AND";
+                    } 
                     if ($_POST["cat_id"]) {
-                        $query += " AND $tbl.cat_id = $cat_id";
+                        $query .= " $tbl.cat_id = $cat_id";
                     }
-                    $query += ";";
-                        
+                    
+                    $query = rtrim($query, " AND");
+                    $query .= ";";
+
                     $success = $conn->query($query);   
                     $resultArray = []; 
                     if ($success->num_rows > 0) {
                         while($row = $success->fetch_array()) {
-                            array_push($resultArray, ["amount" => $row["amount"], "date" => $row["date"], "category" => $row["category"]]);
+                            if($row["category"] === null) {
+                                array_push($resultArray, ["amount" => $row["amount"], "date" => $row["date"], "category" => "uncategorized"]);
+                            } else {
+                                array_push($resultArray, ["amount" => $row["amount"], "date" => $row["date"], "category" => $row["category"]]);
+                            }
                         }
 
                         echo json_encode([ "results" => $resultArray ]); 
                 
                     } else {
-                        echo json_encode([ "results" => [] ]);
+                        echo json_encode([ "results" => "There are no transactions that meet your search criteria." ]);
                     }
+                } else {
+                    echo "Post is empty";
                 }
         ?>

@@ -18,7 +18,6 @@ class DateInput extends Component {
           type="date"
           name="date"
           onChange={this.handleUserEnterDate}
-          required
         />
       </div>
     );

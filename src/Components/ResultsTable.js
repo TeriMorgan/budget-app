@@ -5,9 +5,9 @@ class ResultsTable extends Component {
     const { results } = this.props;
     const resultList = results.map(result => (
       <tr key={result.id}>
-        <td>result.amount</td>
-        <td>result.date</td>
-        <td>result.category</td>
+        <td>{result.amount}</td>
+        <td>{result.date}</td>
+        <td>{result.category}</td>
       </tr>
     ));
 

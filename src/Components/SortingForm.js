@@ -22,21 +22,41 @@ class SortingForm extends Component {
     };
   }
 
-  handleTransaction = State => {
+  handleMinTransaction = State => {
     console.log(State);
     this.setState(
       {
-        amount: State.amount
+        amountMin: State.amount
       },
       () => console.log(this.state)
     );
   };
 
-  handleDate = State => {
+  handleMaxTransaction = State => {
     console.log(State);
     this.setState(
       {
-        date: State.date
+        amountMax: State.amount
+      },
+      () => console.log(this.state)
+    );
+  };
+
+  handleDateStart = State => {
+    console.log(State);
+    this.setState(
+      {
+        dateStart: State.date
+      },
+      () => console.log(this.state)
+    );
+  };
+
+  handleDateEnd = State => {
+    console.log(State);
+    this.setState(
+      {
+        dateEnd: State.date
       },
       () => console.log(this.state)
     );
@@ -110,12 +130,12 @@ class SortingForm extends Component {
               <h3>Sort by date:</h3>
               <DateInput
                 label="Earliest date:"
-                handleDate={this.handleDate}
+                handleDate={this.handleDateStart}
                 date={dateStart}
               />
               <DateInput
                 label="Latest date:"
-                handleDate={this.handleDate}
+                handleDate={this.handleDateEnd}
                 date={dateEnd}
               />
             </div>
@@ -123,12 +143,12 @@ class SortingForm extends Component {
               <h3>Sort by transaction amount:</h3>
               <TransactionInput
                 label="Minimum amount:"
-                handleTransaction={this.handleTransaction}
+                handleTransaction={this.handleMinTransaction}
                 amount={amountMin}
               />
               <TransactionInput
                 label="Maximum amount:"
-                handleTransaction={this.handleTransaction}
+                handleTransaction={this.handleMaxTransaction}
                 amount={amountMax}
               />
             </div>

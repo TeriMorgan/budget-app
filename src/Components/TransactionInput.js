@@ -19,7 +19,6 @@ class TransactionInput extends Component {
           name="transaction"
           placeholder="Enter amount"
           onChange={this.handleUserEnterTransaction}
-          required
         />
       </div>
     );
