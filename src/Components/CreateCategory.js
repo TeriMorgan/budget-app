@@ -58,8 +58,9 @@ class CreateCategory extends Component {
 
   updateCategoriesState = newId => {
     const { categories, userInput } = this.state;
+    const categoryNew = { value: newId, label: userInput };
     if (newId !== -1) {
-      categories.push({ value: newId, label: userInput });
+      categories.push(categoryNew);
     } else {
       alert("There was a problem retrieving the id from the database");
     }
@@ -71,7 +72,7 @@ class CreateCategory extends Component {
       },
       () => {
         console.log(this.state);
-        this.props.handleCatId(newId);
+        this.props.handleCatId(categoryNew);
       }
     );
   };

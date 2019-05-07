@@ -4,7 +4,6 @@ import TransactionInput from "./TransactionInput";
 import CreateCategory from "./CreateCategory";
 import axios from "axios";
 import DateInput from "./DateInput";
-import SelectCategory from "./SelectCategory";
 import SelectReact from "./SelectReact";
 
 const API_SAVE_TRANSACTION =
@@ -17,16 +16,22 @@ class Form extends Component {
     this.state = {
       amount: "",
       date: "",
-      cat_id: ""
+      cat_id: null
     };
   }
 
   handleSubmit = event => {
+    const selectedCatId = this.state.cat_id ? this.state.cat_id.value : null;
+    const formValues = {
+      amount: this.state.amount,
+      date: this.state.date,
+      cat_id: selectedCatId
+    };
     axios({
       method: "post",
       url: `${API_SAVE_TRANSACTION}`,
       headers: { "content-type": "application/json" },
-      data: this.state
+      data: formValues
     })
       .then(result => {
         //Do I need to do something with result?
@@ -74,7 +79,7 @@ class Form extends Component {
       {
         amount: "",
         date: "",
-        cat_id: undefined
+        cat_id: null
       },
       () => {
         console.log(this.state);

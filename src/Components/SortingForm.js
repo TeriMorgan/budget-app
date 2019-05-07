@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import DateInput from "./DateInput";
 import TransactionInput from "./TransactionInput";
-import SelectCategory from "./SelectCategory";
 import ResultsTable from "./ResultsTable";
 import axios from "axios";
+import SelectReact from "./SelectReact";
 
 const API_SORT_TRANSACTIONS =
   "http://terimorgan.com/api/contact/divvy-app/sortTransactions.php";
@@ -17,7 +17,7 @@ class SortingForm extends Component {
       dateEnd: "",
       amountMin: "",
       amountMax: "",
-      cat_id: "",
+      cat_id: null,
       results: [],
       displayTable: "hidden",
       displayParagraph: "hidden"
@@ -75,11 +75,19 @@ class SortingForm extends Component {
   };
 
   handleSubmit = event => {
+    const selectedCatId = this.state.cat_id ? this.state.cat_id.value : null;
+    const formValues = {
+      amountMin: this.state.amountMin,
+      amountMax: this.state.amountMax,
+      dateStart: this.state.dateStart,
+      dateEnd: this.state.dateEnd,
+      cat_id: selectedCatId
+    };
     axios({
       method: "post",
       url: `${API_SORT_TRANSACTIONS}`,
       headers: { "content-type": "application/json" },
-      data: this.state
+      data: formValues
     })
       .then(result => {
         const { results } = result.data;
@@ -117,7 +125,7 @@ class SortingForm extends Component {
         dateEnd: "",
         amountMin: "",
         amountMax: "",
-        cat_id: ""
+        cat_id: null
       },
       () => {
         console.log(this.state);
@@ -142,7 +150,7 @@ class SortingForm extends Component {
           <h2>Sort transactions</h2>
           <div className="form-container">
             <div className="col-container thirty-three">
-              <h3>Sort by date:</h3>
+              <h3>Sort by date</h3>
               <DateInput
                 label="Earliest date:"
                 handleDate={this.handleDateStart}
@@ -155,7 +163,7 @@ class SortingForm extends Component {
               />
             </div>
             <div className="col-container thirty-three">
-              <h3>Sort by amount:</h3>
+              <h3>Sort by amount</h3>
               <TransactionInput
                 label="Minimum amount:"
                 handleTransaction={this.handleMinTransaction}
@@ -168,8 +176,8 @@ class SortingForm extends Component {
               />
             </div>
             <div className="col-container thirty-three">
-              <h3>Sort by category:</h3>
-              <SelectCategory
+              <h3>Sort by category</h3>
+              <SelectReact
                 handleCatId={this.handleCatId}
                 selectedCategoryId={cat_id}
               />

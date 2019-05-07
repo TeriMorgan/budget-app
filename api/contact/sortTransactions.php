@@ -48,10 +48,18 @@
                     
                     if ($_POST["dateStart"] && $_POST["dateEnd"]) {
                         $query .= " date BETWEEN '$dateStart' AND '$dateEnd' AND";
+                    } else if ($_POST["dateStart"]) {
+                        $query .= " date >= '$dateStart' AND";
+                    } else if ($_POST["dateEnd"]) {
+                        $query .= " date <= '$dateEnd' AND";
                     }
                     if ($_POST["amountMin"] && $_POST["amountMax"]) {
                         $query .= " amount BETWEEN $amountMin AND $amountMax AND";
-                    } 
+                    } else if ($_POST["amountMin"]) {
+                        $query .= " amount >= $amountMin AND";
+                    } else if ($_POST["amountMax"]) {
+                        $query .= " amount <= $amountMax AND";
+                    }
                     if ($_POST["cat_id"]) {
                         $query .= " $tbl.cat_id = $cat_id";
                     }

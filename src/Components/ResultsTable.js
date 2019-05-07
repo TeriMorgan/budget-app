@@ -3,9 +3,15 @@ import React, { Component } from "react";
 class ResultsTable extends Component {
   render() {
     const { results, displayTable, displayParagraph } = this.props;
+
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
+
     const resultList = results.map(result => (
       <tr key={result.id}>
-        <td>{result.amount}</td>
+        <td>{formatter.format(result.amount)}</td>
         <td>{result.date}</td>
         <td>{result.category}</td>
       </tr>

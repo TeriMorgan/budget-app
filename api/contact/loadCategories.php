@@ -23,13 +23,13 @@
                     } 
 
                     // Loading records                    
-                    $query = "SELECT cat_id, category FROM $tbl;";
+                    $query = "SELECT cat_id, category FROM $tbl ORDER BY category;";
                     $success = $conn->query($query);   
                     $resultArray = [];         
                     if ($success->num_rows > 0) {
                 
                         while($row = $success->fetch_array()) {
-                            array_push($resultArray, ["value" => $row["cat_id"], "label" => $row["category"]]); //TODO: remove when done troubleshooting
+                            array_push($resultArray, ["id" => $row["cat_id"], "name" => $row["category"]]); 
                         }
 
                         echo json_encode([ "categories" => $resultArray ]); 

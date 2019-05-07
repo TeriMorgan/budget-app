@@ -25,9 +25,13 @@ class SelectReact extends Component {
       url: `${API_LOAD_CATEGORIES}`
     }).then(result => {
       const { categories } = result.data;
+      const categoriesRemapped = categories.map(category => ({
+        value: category.id,
+        label: category.name
+      }));
       this.setState(
         {
-          categories
+          categories: categoriesRemapped
         },
         () => {
           console.log(categories); //TODO: remove when done troubleshooting
@@ -36,13 +40,13 @@ class SelectReact extends Component {
     });
   }
 
-  onSelectCategoryChange = event => {
-    const selectedCategoryId = event.value;
+  onSelectCategoryChange = selectedCategoryId => {
     this.props.handleCatId(selectedCategoryId);
   };
 
   render() {
-    const { selectedCategoryId, categories } = this.state;
+    const { selectedCategoryId } = this.props;
+    const { categories } = this.state;
     return (
       <div>
         <Select
