@@ -33,7 +33,7 @@ class Form extends Component {
         this.clearState();
       })
       .catch(ex => {
-        alert("The category cannot be saved.");
+        alert("The transaction cannot be saved.");
         console.warn(ex);
       });
   };
