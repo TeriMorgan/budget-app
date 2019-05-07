@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class ResultsTable extends Component {
   render() {
-    const { results } = this.props;
+    const { results, displayTable, displayParagraph } = this.props;
     const resultList = results.map(result => (
       <tr key={result.id}>
         <td>{result.amount}</td>
@@ -13,8 +13,20 @@ class ResultsTable extends Component {
 
     return (
       <div>
-        <h2>Results:</h2>
-        <table>{resultList}</table>
+        <p className={displayParagraph}>
+          No transactions meet your search criteria.
+        </p>
+        <div className={displayTable}>
+          <h2>Results:</h2>
+          <table>
+            <tr>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Category</th>
+            </tr>
+            {resultList}
+          </table>
+        </div>
       </div>
     );
   }

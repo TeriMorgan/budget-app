@@ -6,7 +6,7 @@ function Logo() {
       <img
         src="http://terimorgan.com/budget.png"
         alt="budget logo"
-        width="200px"
+        // width="200px"
       />
     </div>
   );

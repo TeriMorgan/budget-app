@@ -18,7 +18,9 @@ class SortingForm extends Component {
       amountMin: "",
       amountMax: "",
       cat_id: "",
-      results: []
+      results: [],
+      displayTable: "hidden",
+      displayParagraph: "hidden"
     };
   }
 
@@ -81,15 +83,26 @@ class SortingForm extends Component {
     })
       .then(result => {
         const { results } = result.data;
-        this.setState(
-          {
-            results
-          },
-          () => {
-            console.log(result);
-            this.clearState();
-          }
-        );
+        console.log(results.length);
+        if (results.length === 0) {
+          this.setState({
+            results,
+            displayTable: "hidden",
+            displayParagraph: "visible"
+          });
+        } else {
+          this.setState(
+            {
+              results,
+              displayTable: "visible",
+              displayParagraph: "hidden"
+            },
+            () => {
+              console.log(result);
+              this.clearState();
+            }
+          );
+        }
       })
       .catch(ex => {
         alert("Something went wrong.");
@@ -119,12 +132,14 @@ class SortingForm extends Component {
       dateStart,
       dateEnd,
       cat_id,
-      results
+      results,
+      displayTable,
+      displayParagraph
     } = this.state;
     return (
       <div className="container">
         <div className="flex-container column">
-          <h2>Sort transactions:</h2>
+          <h2>Sort transactions</h2>
           <div className="form-container">
             <div className="col-container thirty-three">
               <h3>Sort by date:</h3>
@@ -140,7 +155,7 @@ class SortingForm extends Component {
               />
             </div>
             <div className="col-container thirty-three">
-              <h3>Sort by transaction amount:</h3>
+              <h3>Sort by amount:</h3>
               <TransactionInput
                 label="Minimum amount:"
                 handleTransaction={this.handleMinTransaction}
@@ -161,12 +176,17 @@ class SortingForm extends Component {
             </div>
           </div>
         </div>
-        <button type="submit" onClick={this.handleSubmit}>
-          Search
-        </button>
-        <div>
-          <ResultsTable results={results} />
+        <div className="button-container">
+          <button type="submit" onClick={this.handleSubmit}>
+            Search
+          </button>
+          <button type="reset">Reset</button>
         </div>
+        <ResultsTable
+          results={results}
+          displayTable={displayTable}
+          displayParagraph={displayParagraph}
+        />
       </div>
     );
   }

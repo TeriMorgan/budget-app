@@ -17,6 +17,7 @@ class DateInput extends Component {
           value={this.props.date}
           type="date"
           name="date"
+          placeholder="Enter a date"
           onChange={this.handleUserEnterDate}
         />
       </div>

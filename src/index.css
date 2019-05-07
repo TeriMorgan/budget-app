@@ -1,5 +1,6 @@
 body {
   background-color: #f0f0f0;
+  font-family: "Raleway", sans-serif;
 }
 
 div {
@@ -7,7 +8,13 @@ div {
 }
 h2 {
   font-size: 1.5em;
-  color: #ea9242;
+  background-color: #ea9242;
+  color: white;
+  padding: 15px;
+}
+img {
+  width: 90%;
+  margin: 0 auto;
 }
 
 .container {
@@ -34,21 +41,18 @@ h2 {
 .sub-container {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  padding: 15px;
-  text-align: left;
 }
 
 .form-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .col-container {
   display: flex;
   flex-direction: column;
   align-items: left;
-  padding: 15px;
 }
 
 .seventy {
@@ -56,11 +60,11 @@ h2 {
 }
 
 .fifty {
-  width: 50%;
+  width: 48%;
 }
 
 .thirty-three {
-  width: 33%;
+  width: 31%;
 }
 
 .logo-container {
@@ -71,7 +75,6 @@ h2 {
 }
 
 label {
-  margin-bottom: 10px;
   text-align: left;
 }
 
@@ -79,6 +82,7 @@ input {
   width: 100%;
   height: 30px;
   margin-bottom: 15px;
+  margin-top: 5px;
   border-radius: 5px;
   padding: 5px;
   outline: none;
@@ -96,7 +100,7 @@ button {
   color: white;
   border-radius: 5px;
   outline: none;
-  margin-bottom: 30px;
+  margin: 0px 15px 30px 15px;
 }
 
 button:hover {
@@ -115,6 +119,7 @@ button:hover {
 .row-container > button {
   width: 20%;
   height: 100%;
+  margin: 0px;
 }
 
 select {
@@ -123,17 +128,55 @@ select {
   outline: none;
 }
 
+table {
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  border: 1.5px solid white;
+  padding: 4px;
+}
+
+tr:nth-child(odd) {
+  background-color: white;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+th {
+  background-color: #ea9242;
+  color: white;
+  font-size: 1.2em;
+}
+
+p {
+  color: white;
+  font-size: 1.5em;
+  background-color: #ea9242;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
 @media (max-width: 760px) {
   .form-container,
   .flex-container {
     flex-direction: column;
   }
-  .logo-container {
-    width: 100%;
-  }
+  .logo-container,
+  .sub-container,
   .col-container {
     width: 100%;
   }
+
   select {
     height: 30px;
   }
@@ -146,6 +189,7 @@ select {
   }
   button {
     height: 30px;
+    width: 30%;
   }
 }
 
@@ -154,11 +198,13 @@ select {
   .flex-container {
     flex-direction: column;
   }
-  .logo-container {
+  .logo-container,
+  .sub-container,
+  .col-container {
     width: 100%;
   }
   .col-container {
-    width: 100%;
+    padding: 0px;
   }
   select {
     width: 100%;
@@ -169,7 +215,7 @@ select {
   input {
     width: 100%;
   }
-  img {
-    width: 50%;
+  h2 {
+    font-size: 1.2em;
   }
 }
