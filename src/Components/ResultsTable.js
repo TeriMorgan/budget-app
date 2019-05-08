@@ -18,12 +18,12 @@ class ResultsTable extends Component {
     ));
 
     return (
-      <div>
+      <div className="flex-container">
         <p className={displayParagraph}>
           No transactions meet your search criteria.
         </p>
         <div className={displayTable}>
-          <h2>Results:</h2>
+          <h2>Results</h2>
           <table>
             <tr>
               <th>Amount</th>

@@ -34,7 +34,7 @@ class SelectReact extends Component {
           categories: categoriesRemapped
         },
         () => {
-          console.log(categories); //TODO: remove when done troubleshooting
+          console.log(categories);
         }
       );
     });

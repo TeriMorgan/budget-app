@@ -30,6 +30,9 @@ class CreateCategory extends Component {
       const categoryNameLC = categories[i].label.toLowerCase();
       if (categoryNameLC === userInputLC) {
         alert("Category already exists");
+        this.setState({
+          userInput: ""
+        });
         return;
       }
     }
