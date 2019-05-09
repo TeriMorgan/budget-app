@@ -4,13 +4,13 @@
         $rest_json = file_get_contents("php://input");
         $_POST = json_decode($rest_json, true);
 
-        if (empty($_POST['userInput'])) die();
+        if (empty($_POST['category'])) die();
 
         if ($_POST)
             {
             // set response code - 200 OK
             http_response_code(200);
-                    $category = $_POST["userInput"];
+                    $category = $_POST["category"];
                 
                     $servername = "208.117.38.17";
                     $username = "terimotj_root";
@@ -32,7 +32,7 @@
                     $return = mysqli_query($conn, $query) or die (mysqli_error($conn));     
                     $row= mysqli_fetch_array($return);
 
-                    // TODO: still not returning the newId          
+                    // Return the cat_id of the newly added category        
                     $query = "SELECT MAX(cat_id) as newId FROM $tbl;";
                     $success = $conn->query($query);   
                     if ($success->num_rows > 0) {

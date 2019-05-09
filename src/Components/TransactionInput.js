@@ -4,9 +4,7 @@ class TransactionInput extends Component {
   handleUserEnterTransaction = event => {
     const amount = event.target.value;
 
-    this.props.handleTransaction({
-      amount
-    });
+    this.props.handleTransaction(amount);
   };
 
   render() {

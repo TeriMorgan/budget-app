@@ -17,7 +17,7 @@ class SortingForm extends Component {
       dateEnd: "",
       amountMin: "",
       amountMax: "",
-      cat_id: null,
+      category: null,
       results: [],
       displayTable: "hidden",
       displayParagraph: "hidden"
@@ -64,18 +64,20 @@ class SortingForm extends Component {
     );
   };
 
-  handleCatId = selectedCategoryId => {
-    console.log(selectedCategoryId);
+  handleCategory = category => {
+    console.log(category);
     this.setState(
       {
-        cat_id: selectedCategoryId
+        category
       },
       () => console.log(this.state)
     );
   };
 
   handleSubmit = event => {
-    const selectedCatId = this.state.cat_id ? this.state.cat_id.value : null;
+    const selectedCatId = this.state.category
+      ? this.state.category.value
+      : null;
     const formValues = {
       amountMin: this.state.amountMin,
       amountMax: this.state.amountMax,
@@ -125,7 +127,7 @@ class SortingForm extends Component {
         dateEnd: "",
         amountMin: "",
         amountMax: "",
-        cat_id: null
+        category: null
       },
       () => {
         console.log(this.state);
@@ -139,11 +141,16 @@ class SortingForm extends Component {
       amountMax,
       dateStart,
       dateEnd,
-      cat_id,
+      category,
       results,
       displayTable,
       displayParagraph
     } = this.state;
+
+    const { categories } = this.props;
+
+    console.log(categories);
+
     return (
       <div className="container">
         <div className="flex-container column">
@@ -178,8 +185,10 @@ class SortingForm extends Component {
             <div className="col-container thirty-three">
               <h3>Sort by category</h3>
               <SelectReact
-                handleCatId={this.handleCatId}
-                selectedCategoryId={cat_id}
+                handleCategory={this.handleCategory}
+                selectedCategory={category}
+                categories={categories}
+                key="SortingFormSelect"
               />
             </div>
           </div>

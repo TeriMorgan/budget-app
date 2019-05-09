@@ -10,22 +10,23 @@ const API_SAVE_TRANSACTION =
   "http://terimorgan.com/api/contact/divvy-app/saveTransaction.php";
 
 class Form extends Component {
+  initialState = {
+    amount: "",
+    date: "",
+    category: null
+  };
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      amount: "",
-      date: "",
-      cat_id: null
-    };
+    this.state = this.initialState;
   }
 
   handleSubmit = event => {
-    const selectedCatId = this.state.cat_id ? this.state.cat_id.value : null;
     const formValues = {
       amount: this.state.amount,
       date: this.state.date,
-      cat_id: selectedCatId
+      cat_id: this.state.category !== null ? this.state.category.value : null
     };
     axios({
       method: "post",
@@ -34,7 +35,6 @@ class Form extends Component {
       data: formValues
     })
       .then(result => {
-        //Do I need to do something with result?
         console.log(result);
         this.clearState();
       })
@@ -44,51 +44,45 @@ class Form extends Component {
       });
   };
 
-  handleTransaction = State => {
-    console.log(State);
+  handleTransaction = amount => {
+    console.log(amount);
     this.setState(
       {
-        amount: State.amount
+        amount
       },
       () => console.log(this.state)
     );
   };
 
-  handleDate = State => {
-    console.log(State);
+  handleDate = date => {
+    console.log(date);
     this.setState(
       {
-        date: State.date
+        date
       },
       () => console.log(this.state)
     );
   };
 
-  handleCatId = selectedCategoryId => {
-    console.log(selectedCategoryId);
+  handleCategory = category => {
+    console.log(category);
     this.setState(
       {
-        cat_id: selectedCategoryId
+        category
       },
       () => console.log(this.state)
     );
   };
 
   clearState = () => {
-    this.setState(
-      {
-        amount: "",
-        date: "",
-        cat_id: null
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState(this.initialState, () => {
+      console.log(this.state);
+    });
   };
 
   render() {
-    const { amount, date, cat_id } = this.state;
+    const { amount, date, category } = this.state;
+    const { handleCreateCategory, categories } = this.props;
     return (
       <div className="container">
         <div className="flex-container">
@@ -109,10 +103,15 @@ class Form extends Component {
                 />
               </div>
               <div className="col-container fifty">
-                <CreateCategory handleCatId={this.handleCatId} />
+                <CreateCategory
+                  handleCreateCategory={handleCreateCategory}
+                  handleCategory={this.handleCategory}
+                />
                 <SelectReact
-                  handleCatId={this.handleCatId}
-                  selectedCategoryId={cat_id}
+                  handleCategory={this.handleCategory}
+                  selectedCategory={category}
+                  categories={categories}
+                  key="FormSelect"
                 />
               </div>
             </div>

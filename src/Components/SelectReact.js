@@ -1,60 +1,29 @@
 import React, { Component } from "react";
 import Select from "react-select";
-import axios from "axios";
-
-// const HOST = 'http://localhost';
-const HOST = "http://terimorgan.com";
-
-const API_LOAD_CATEGORIES = HOST + "/api/contact/divvy-app/loadCategories.php";
 
 class SelectReact extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      categories: []
-    };
+
+    var s = "Huh";
+    console.log(s);
   }
 
-  componentDidMount() {
-    this.loadCategories();
+  componentDidUpdate(nextProps) {
+    console.log("NextProps");
+    console.log(nextProps);
+    console.log("This.Props");
+    console.log(this.props);
   }
-
-  loadCategories() {
-    axios({
-      method: "get",
-      url: `${API_LOAD_CATEGORIES}`
-    }).then(result => {
-      const { categories } = result.data;
-      const categoriesRemapped = categories.map(category => ({
-        value: category.id,
-        label: category.name
-      }));
-      this.setState(
-        {
-          categories: categoriesRemapped
-        },
-        () => {
-          console.log(categories);
-        }
-      );
-    });
-  }
-
-  onSelectCategoryChange = selectedCategoryId => {
-    this.props.handleCatId(selectedCategoryId);
-  };
 
   render() {
-    const { selectedCategoryId } = this.props;
-    const { categories } = this.state;
+    const { selectedCategory, categories, handleCategory } = this.props;
     return (
-      <div>
-        <Select
-          value={selectedCategoryId}
-          onChange={this.onSelectCategoryChange}
-          options={categories}
-        />
-      </div>
+      <Select
+        value={selectedCategory}
+        onChange={handleCategory}
+        options={categories}
+      />
     );
   }
 }

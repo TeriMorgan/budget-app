@@ -4,9 +4,7 @@ class DateInput extends Component {
   handleUserEnterDate = event => {
     const date = event.target.value;
 
-    this.props.handleDate({
-      date
-    });
+    this.props.handleDate(date);
   };
 
   render() {
