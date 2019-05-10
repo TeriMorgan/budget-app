@@ -115,13 +115,13 @@ class Form extends Component {
                 />
               </div>
             </div>
+            <div className="button-container">
+              <button type="submit" onClick={this.handleSubmit}>
+                Submit
+              </button>
+              <button type="reset">Reset</button>
+            </div>
           </div>
-        </div>
-        <div className="button-container">
-          <button type="submit" onClick={this.handleSubmit}>
-            Submit
-          </button>
-          <button type="reset">Reset</button>
         </div>
       </div>
     );

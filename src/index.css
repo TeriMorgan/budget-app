@@ -1,6 +1,7 @@
 body {
   background-color: #f0f0f0;
   font-family: "Raleway", sans-serif;
+  margin: 0 auto;
 }
 
 div {
@@ -17,9 +18,9 @@ h3 {
   font-size: 1.25em;
   font-family: "Oswald", sans-serif;
 }
+
 img {
   width: 90%;
-  margin: 0 auto;
 }
 
 .container {
@@ -29,8 +30,8 @@ img {
 
 .flex-container {
   display: flex;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-between;
+  width: 80%;
   margin: 0 auto;
   padding: 20px;
   color: #2492d0;
@@ -58,6 +59,10 @@ img {
   display: flex;
   flex-direction: column;
   align-items: left;
+}
+
+.button-container {
+  text-align: center;
 }
 
 .seventy {
@@ -99,13 +104,13 @@ input:focus {
 }
 
 button {
-  width: 15%;
-  height: 30px;
+  width: 140px;
+  height: 35px;
   background-color: #2492d0;
   color: white;
   border-radius: 5px;
   outline: none;
-  margin: 0px 15px 30px 15px;
+  margin: 20px 15px 30px 15px;
 }
 
 button:hover {
@@ -134,11 +139,12 @@ select {
 }
 
 table {
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
   margin-bottom: 100px;
   border: 1.5px solid white;
   padding: 4px;
+  color: #4e4e4e;
 }
 
 tr:nth-child(odd) {
@@ -151,7 +157,7 @@ td {
 }
 
 th {
-  background-color: #ea9242;
+  background-color: #2492d0;
   color: white;
   font-size: 1.2em;
 }
@@ -178,6 +184,12 @@ p {
   .flex-container {
     flex-direction: column;
   }
+  .flex-container {
+    width: 100%;
+  }
+  .filtering-form {
+    flex-direction: column-reverse;
+  }
   .logo-container,
   .sub-container,
   .col-container {
@@ -192,14 +204,27 @@ p {
   .logo-container {
     margin: 0 auto;
   }
+  img {
+    margin: 0 auto;
+  }
   input {
     width: 100%;
   }
   button {
     width: 25%;
-    margin: 0px 10px 30px 10px;
+    margin: 20px 10px 0px 10px;
   }
   h2 {
     font-size: 1.5em;
+  }
+  .results {
+    margin: 0px 0px 25px;
+  }
+  table {
+    font-size: 0.8em;
+    width: 100%;
+  }
+  th {
+    font-size: 1em;
   }
 }

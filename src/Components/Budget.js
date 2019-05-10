@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Form from "./Form";
-import SortingForm from "./SortingForm";
+import TransactionForm from "./TransactionForm";
+import FilteringForm from "./FilteringForm";
 
 // const HOST = 'http://localhost';
 const HOST = "http://terimorgan.com";
@@ -70,7 +70,10 @@ class Budget extends Component {
         const {
           data: { newId }
         } = result;
-        this.updateCategoriesState(newId, newCategoryNameLC, handleCategory);
+        // this.updateCategoriesState(newId, newCategoryNameLC, handleCategory);
+        this.loadCategories();
+        const categoryNew = { value: newId, label: newCategoryNameLC };
+        handleCategory(categoryNew);
       })
       .catch(ex => {
         alert("The category cannot be saved.");
@@ -78,32 +81,32 @@ class Budget extends Component {
       });
   };
 
-  updateCategoriesState = (newId, newCategoryNameLC, handleCategory) => {
-    const { categories } = this.state;
-    const categoryNew = { value: newId, label: newCategoryNameLC };
-    if (newId !== -1) {
-      categories.push(categoryNew);
-    } else {
-      alert("There was a problem retrieving the id from the database");
-    }
+  //   updateCategoriesState = (newId, newCategoryNameLC, handleCategory) => {
+  //     const { categories } = this.state;
+  //     const categoryNew = { value: newId, label: newCategoryNameLC };
+  //     if (newId !== -1) {
+  //       categories.push(categoryNew);
+  //     } else {
+  //       alert("There was a problem retrieving the id from the database");
+  //     }
 
-    this.setState(
-      {
-        categories
-      },
-      () => handleCategory(categoryNew)
-    );
-  };
+  //     this.setState(
+  //       {
+  //         categories
+  //       },
+  //       () => handleCategory(categoryNew)
+  //     );
+  //   };
 
   render() {
     const { categories } = this.state;
     return (
       <div>
-        <Form
+        <TransactionForm
           handleCreateCategory={this.handleCreateCategory}
           categories={categories}
         />
-        <SortingForm categories={categories} />
+        <FilteringForm categories={categories} />
       </div>
     );
   }

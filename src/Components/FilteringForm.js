@@ -19,46 +19,46 @@ class SortingForm extends Component {
       amountMax: "",
       category: null,
       results: [],
-      displayTable: "hidden",
+      displayTable: "visible",
       displayParagraph: "hidden"
     };
   }
 
-  handleMinTransaction = State => {
-    console.log(State);
+  handleMinTransaction = amount => {
+    console.log(amount);
     this.setState(
       {
-        amountMin: State.amount
+        amountMin: amount
       },
       () => console.log(this.state)
     );
   };
 
-  handleMaxTransaction = State => {
-    console.log(State);
+  handleMaxTransaction = amount => {
+    console.log(amount);
     this.setState(
       {
-        amountMax: State.amount
+        amountMax: amount
       },
       () => console.log(this.state)
     );
   };
 
-  handleDateStart = State => {
-    console.log(State);
+  handleDateStart = date => {
+    console.log(date);
     this.setState(
       {
-        dateStart: State.date
+        dateStart: date
       },
       () => console.log(this.state)
     );
   };
 
-  handleDateEnd = State => {
-    console.log(State);
+  handleDateEnd = date => {
+    console.log(date);
     this.setState(
       {
-        dateEnd: State.date
+        dateEnd: date
       },
       () => console.log(this.state)
     );
@@ -153,37 +153,45 @@ class SortingForm extends Component {
 
     return (
       <div className="container">
-        <div className="flex-container column">
-          <h2>Sort transactions</h2>
-          <div className="form-container">
-            <div className="col-container thirty-three">
-              <h3>Sort by date</h3>
-              <DateInput
-                label="Earliest date:"
-                handleDate={this.handleDateStart}
-                date={dateStart}
-              />
-              <DateInput
-                label="Latest date:"
-                handleDate={this.handleDateEnd}
-                date={dateEnd}
-              />
+        <div className="flex-container filtering-form">
+          <ResultsTable
+            results={results}
+            displayTable={displayTable}
+            displayParagraph={displayParagraph}
+          />
+
+          <div className="col-container fifty">
+            <h2>Filter transactions</h2>
+            <div className="form-container">
+              <div className="col-container fifty">
+                <h3>By date</h3>
+                <DateInput
+                  label="Earliest date:"
+                  handleDate={this.handleDateStart}
+                  date={dateStart}
+                />
+                <DateInput
+                  label="Latest date:"
+                  handleDate={this.handleDateEnd}
+                  date={dateEnd}
+                />
+              </div>
+              <div className="col-container fifty">
+                <h3>By amount</h3>
+                <TransactionInput
+                  label="Minimum amount:"
+                  handleTransaction={this.handleMinTransaction}
+                  amount={amountMin}
+                />
+                <TransactionInput
+                  label="Maximum amount:"
+                  handleTransaction={this.handleMaxTransaction}
+                  amount={amountMax}
+                />
+              </div>
             </div>
-            <div className="col-container thirty-three">
-              <h3>Sort by amount</h3>
-              <TransactionInput
-                label="Minimum amount:"
-                handleTransaction={this.handleMinTransaction}
-                amount={amountMin}
-              />
-              <TransactionInput
-                label="Maximum amount:"
-                handleTransaction={this.handleMaxTransaction}
-                amount={amountMax}
-              />
-            </div>
-            <div className="col-container thirty-three">
-              <h3>Sort by category</h3>
+            <div className="col-container">
+              <h3>By category</h3>
               <SelectReact
                 handleCategory={this.handleCategory}
                 selectedCategory={category}
@@ -191,19 +199,14 @@ class SortingForm extends Component {
                 key="SortingFormSelect"
               />
             </div>
+            <div className="button-container">
+              <button type="submit" onClick={this.handleSubmit}>
+                Search
+              </button>
+              <button type="reset">Reset</button>
+            </div>
           </div>
         </div>
-        <div className="button-container">
-          <button type="submit" onClick={this.handleSubmit}>
-            Search
-          </button>
-          <button type="reset">Reset</button>
-        </div>
-        <ResultsTable
-          results={results}
-          displayTable={displayTable}
-          displayParagraph={displayParagraph}
-        />
       </div>
     );
   }

@@ -18,18 +18,38 @@ class ResultsTable extends Component {
     ));
 
     return (
-      <div className="flex-container">
+      <div className="col-container fifty">
         <p className={displayParagraph}>
           No transactions meet your search criteria.
         </p>
         <div className={displayTable}>
-          <h2>Results</h2>
+          <h2 className="results">Results</h2>
           <table>
             <tr>
               <th>Amount</th>
               <th>Date</th>
               <th>Category</th>
             </tr>
+            {/* <tr>              TODO: sample data
+              <td>50.00</td>
+              <td>2019-04-01</td>
+              <td>Boogers</td>
+            </tr>
+            <tr>
+              <td>50.00</td>
+              <td>2019-04-01</td>
+              <td>Boogers</td>
+            </tr>
+            <tr>
+              <td>50.00</td>
+              <td>2019-04-01</td>
+              <td>Boogers</td>
+            </tr>
+            <tr>
+              <td>50.00</td>
+              <td>2019-04-01</td>
+              <td>Boogers</td>
+            </tr> */}
             {resultList}
           </table>
         </div>
