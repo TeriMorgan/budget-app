@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import DateInput from "./DateInput";
 import TransactionInput from "./TransactionInput";
-import ResultsTable from "./ResultsTable";
+import DisplayTransactions from "./DisplayTransactions";
 import axios from "axios";
 import SelectReact from "./SelectReact";
 
 const API_SORT_TRANSACTIONS =
   "http://terimorgan.com/api/contact/divvy-app/sortTransactions.php";
 
-class SortingForm extends Component {
+class FilterTransactions extends Component {
   constructor(props) {
     super(props);
 
@@ -19,62 +19,43 @@ class SortingForm extends Component {
       amountMax: "",
       category: null,
       results: [],
-      displayTable: "visible",
-      displayParagraph: "hidden"
+      displayInitialTable: this.props.displayInitialTable,
+      displayFilteredTable: "hidden",
+      displayParagraph: this.props.displayParagraph
     };
   }
 
-  handleMinTransaction = amount => {
-    console.log(amount);
-    this.setState(
-      {
-        amountMin: amount
-      },
-      () => console.log(this.state)
-    );
+  onMinTransaction = amount => {
+    this.setState({
+      amountMin: amount
+    });
   };
 
-  handleMaxTransaction = amount => {
-    console.log(amount);
-    this.setState(
-      {
-        amountMax: amount
-      },
-      () => console.log(this.state)
-    );
+  onMaxTransaction = amount => {
+    this.setState({
+      amountMax: amount
+    });
   };
 
-  handleDateStart = date => {
-    console.log(date);
-    this.setState(
-      {
-        dateStart: date
-      },
-      () => console.log(this.state)
-    );
+  onDateStart = date => {
+    this.setState({
+      dateStart: date
+    });
   };
 
-  handleDateEnd = date => {
-    console.log(date);
-    this.setState(
-      {
-        dateEnd: date
-      },
-      () => console.log(this.state)
-    );
+  onDateEnd = date => {
+    this.setState({
+      dateEnd: date
+    });
   };
 
-  handleCategory = category => {
-    console.log(category);
-    this.setState(
-      {
-        category
-      },
-      () => console.log(this.state)
-    );
+  onCategory = category => {
+    this.setState({
+      category
+    });
   };
 
-  handleSubmit = event => {
+  onSubmit = event => {
     const selectedCatId = this.state.category
       ? this.state.category.value
       : null;
@@ -93,46 +74,36 @@ class SortingForm extends Component {
     })
       .then(result => {
         const { results } = result.data;
-        console.log(results.length);
         if (results.length === 0) {
           this.setState({
             results,
-            displayTable: "hidden",
+            displayInitialTable: "hidden",
+            displayFilteredTable: "hidden",
             displayParagraph: "visible"
           });
         } else {
-          this.setState(
-            {
-              results,
-              displayTable: "visible",
-              displayParagraph: "hidden"
-            },
-            () => {
-              console.log(result);
-              this.clearState();
-            }
-          );
+          this.setState({
+            results,
+            displayInitialTable: "hidden",
+            displayFilteredTable: "visible",
+            displayParagraph: "hidden"
+          });
         }
       })
       .catch(ex => {
-        alert("Something went wrong.");
+        alert("Something went wrong while trying to filter.");
         console.warn(ex);
       });
   };
 
   clearState = () => {
-    this.setState(
-      {
-        dateStart: "",
-        dateEnd: "",
-        amountMin: "",
-        amountMax: "",
-        category: null
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState({
+      dateStart: "",
+      dateEnd: "",
+      amountMin: "",
+      amountMax: "",
+      category: null
+    });
   };
 
   render() {
@@ -143,20 +114,21 @@ class SortingForm extends Component {
       dateEnd,
       category,
       results,
-      displayTable,
+      displayInitialTable,
+      displayFilteredTable,
       displayParagraph
     } = this.state;
 
     const { categories } = this.props;
 
-    console.log(categories);
-
     return (
       <div className="container">
         <div className="flex-container filtering-form">
-          <ResultsTable
+          <DisplayTransactions
+            initialResults={this.props.initialResults}
             results={results}
-            displayTable={displayTable}
+            displayInitialTable={displayInitialTable}
+            displayFilteredTable={displayFilteredTable}
             displayParagraph={displayParagraph}
           />
 
@@ -167,12 +139,12 @@ class SortingForm extends Component {
                 <h3>By date</h3>
                 <DateInput
                   label="Earliest date:"
-                  handleDate={this.handleDateStart}
+                  onDate={this.onDateStart}
                   date={dateStart}
                 />
                 <DateInput
                   label="Latest date:"
-                  handleDate={this.handleDateEnd}
+                  onDate={this.onDateEnd}
                   date={dateEnd}
                 />
               </div>
@@ -180,12 +152,12 @@ class SortingForm extends Component {
                 <h3>By amount</h3>
                 <TransactionInput
                   label="Minimum amount:"
-                  handleTransaction={this.handleMinTransaction}
+                  onTransaction={this.onMinTransaction}
                   amount={amountMin}
                 />
                 <TransactionInput
                   label="Maximum amount:"
-                  handleTransaction={this.handleMaxTransaction}
+                  onTransaction={this.onMaxTransaction}
                   amount={amountMax}
                 />
               </div>
@@ -193,17 +165,19 @@ class SortingForm extends Component {
             <div className="col-container">
               <h3>By category</h3>
               <SelectReact
-                handleCategory={this.handleCategory}
+                onCategory={this.onCategory}
                 selectedCategory={category}
                 categories={categories}
                 key="SortingFormSelect"
               />
             </div>
             <div className="button-container">
-              <button type="submit" onClick={this.handleSubmit}>
+              <button type="submit" onClick={this.onSubmit}>
                 Search
               </button>
-              <button type="reset">Reset</button>
+              <button type="reset" onClick={this.clearState}>
+                Reset
+              </button>
             </div>
           </div>
         </div>
@@ -212,4 +186,4 @@ class SortingForm extends Component {
   }
 }
 
-export default SortingForm;
+export default FilterTransactions;

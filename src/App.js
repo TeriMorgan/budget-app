@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Budget from "./Components/Budget";
+import ManageTransactions from "./Components/ManageTransactions";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Budget />
+        <ManageTransactions />
       </div>
     );
   }

@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 
 class TransactionInput extends Component {
-  handleUserEnterTransaction = event => {
-    const amount = event.target.value;
-
-    this.props.handleTransaction(amount);
+  onUserEnterTransaction = event => {
+    const amount = event.target.value.replace(/[^0-9\.]/g, "");
+    this.props.onTransaction(amount);
   };
 
   render() {
+    const { label, amount, onMouseLeaveSanitizeAmount } = this.props;
     return (
       <div>
-        <label>{this.props.label}</label>
+        <label>{label}</label>
         <input
-          value={this.props.amount}
+          value={amount}
           type="text"
           name="transaction"
           placeholder="Enter amount"
-          onChange={this.handleUserEnterTransaction}
+          onChange={this.onUserEnterTransaction}
+          onMouseLeave={onMouseLeaveSanitizeAmount}
         />
       </div>
     );

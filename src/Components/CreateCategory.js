@@ -9,19 +9,14 @@ class CreateCategory extends Component {
   }
 
   userEnterCategory = event => {
-    this.setState(
-      {
-        userInput: event.target.value
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState({
+      userInput: event.target.value
+    });
   };
 
-  handleClick = event => {
+  onClick = event => {
     const newCategoryName = this.state.userInput;
-    this.props.handleCreateCategory(newCategoryName, this.props.handleCategory);
+    this.props.onCreateCategory(newCategoryName, this.props.onCategory);
     this.setState({
       userInput: ""
     });
@@ -39,7 +34,7 @@ class CreateCategory extends Component {
             value={userInput}
             onChange={this.userEnterCategory}
           />
-          <button onClick={this.handleClick}>Create</button>
+          <button onClick={this.onClick}>Create</button>
         </div>
       </div>
     );

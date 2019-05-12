@@ -3,11 +3,11 @@ import Select from "react-select";
 
 class SelectReact extends Component {
   render() {
-    const { selectedCategory, categories, handleCategory } = this.props;
+    const { selectedCategory, categories, onCategory } = this.props;
     return (
       <Select
         value={selectedCategory}
-        onChange={handleCategory}
+        onChange={onCategory}
         options={categories}
       />
     );

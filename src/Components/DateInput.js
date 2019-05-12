@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 class DateInput extends Component {
-  handleUserEnterDate = event => {
+  onUserEnterDate = event => {
     const date = event.target.value;
 
-    this.props.handleDate(date);
+    this.props.onDate(date);
   };
 
   render() {
@@ -16,7 +16,7 @@ class DateInput extends Component {
           type="date"
           name="date"
           placeholder="Enter a date"
-          onChange={this.handleUserEnterDate}
+          onChange={this.onUserEnterDate}
         />
       </div>
     );
