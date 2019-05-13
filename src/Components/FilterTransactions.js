@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import DateInput from "./DateInput";
-import TransactionInput from "./TransactionInput";
+import CurrencyInput from "./CurrencyInput";
 import DisplayTransactions from "./DisplayTransactions";
 import axios from "axios";
 import SelectReact from "./SelectReact";
 
-const API_SORT_TRANSACTIONS =
-  "http://terimorgan.com/api/contact/divvy-app/sortTransactions.php";
+// const HOST = 'http://localhost';
+const HOST = "http://terimorgan.com";
+
+const API_FILTER_TRANSACTIONS =
+  HOST + "/api/contact/divvy-app/filterTransactions.php";
 
 class FilterTransactions extends Component {
   constructor(props) {
@@ -25,31 +28,31 @@ class FilterTransactions extends Component {
     };
   }
 
-  onMinTransaction = amount => {
+  onChangeMinTransaction = amount => {
     this.setState({
       amountMin: amount
     });
   };
 
-  onMaxTransaction = amount => {
+  onChangeMaxTransaction = amount => {
     this.setState({
       amountMax: amount
     });
   };
 
-  onDateStart = date => {
+  onChangeDateStart = date => {
     this.setState({
       dateStart: date
     });
   };
 
-  onDateEnd = date => {
+  onChangeDateEnd = date => {
     this.setState({
       dateEnd: date
     });
   };
 
-  onCategory = category => {
+  onChangeCategory = category => {
     this.setState({
       category
     });
@@ -68,7 +71,7 @@ class FilterTransactions extends Component {
     };
     axios({
       method: "post",
-      url: `${API_SORT_TRANSACTIONS}`,
+      url: `${API_FILTER_TRANSACTIONS}`,
       headers: { "content-type": "application/json" },
       data: formValues
     })
@@ -131,7 +134,6 @@ class FilterTransactions extends Component {
             displayFilteredTable={displayFilteredTable}
             displayParagraph={displayParagraph}
           />
-
           <div className="col-container fifty">
             <h2>Filter transactions</h2>
             <div className="form-container">
@@ -139,25 +141,25 @@ class FilterTransactions extends Component {
                 <h3>By date</h3>
                 <DateInput
                   label="Earliest date:"
-                  onDate={this.onDateStart}
+                  onChangeDate={this.onChangeDateStart}
                   date={dateStart}
                 />
                 <DateInput
                   label="Latest date:"
-                  onDate={this.onDateEnd}
+                  onChangeDate={this.onChangeDateEnd}
                   date={dateEnd}
                 />
               </div>
               <div className="col-container fifty">
                 <h3>By amount</h3>
-                <TransactionInput
+                <CurrencyInput
                   label="Minimum amount:"
-                  onTransaction={this.onMinTransaction}
+                  onChangeAmount={this.onChangeMinTransaction}
                   amount={amountMin}
                 />
-                <TransactionInput
+                <CurrencyInput
                   label="Maximum amount:"
-                  onTransaction={this.onMaxTransaction}
+                  onChangeAmount={this.onChangeMaxTransaction}
                   amount={amountMax}
                 />
               </div>
@@ -165,7 +167,7 @@ class FilterTransactions extends Component {
             <div className="col-container">
               <h3>By category</h3>
               <SelectReact
-                onCategory={this.onCategory}
+                onChangeCategory={this.onChangeCategory}
                 selectedCategory={category}
                 categories={categories}
                 key="SortingFormSelect"

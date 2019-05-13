@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-class TransactionInput extends Component {
-  onUserEnterTransaction = event => {
+class CurrencyInput extends Component {
+  onChange = event => {
     const amount = event.target.value.replace(/[^0-9\.]/g, "");
-    this.props.onTransaction(amount);
+    this.props.onChangeAmount(amount);
   };
 
   render() {
@@ -16,7 +16,7 @@ class TransactionInput extends Component {
           type="text"
           name="transaction"
           placeholder="Enter amount"
-          onChange={this.onUserEnterTransaction}
+          onChange={this.onChange}
           onMouseLeave={onMouseLeaveSanitizeAmount}
         />
       </div>
@@ -24,4 +24,4 @@ class TransactionInput extends Component {
   }
 }
 
-export default TransactionInput;
+export default CurrencyInput;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Logo from "./Logo";
-import TransactionInput from "./TransactionInput";
+import CurrencyInput from "./CurrencyInput";
 import CreateCategory from "./CreateCategory";
 import DateInput from "./DateInput";
 import SelectReact from "./SelectReact";
@@ -56,7 +56,7 @@ class CreateTransaction extends Component {
       });
   };
 
-  onTransaction = amount => {
+  onChangeAmount = amount => {
     this.setState({
       amount
     });
@@ -82,20 +82,20 @@ class CreateTransaction extends Component {
     }
   };
 
-  onDate = date => {
+  onChangeDate = date => {
     this.setState({
       date
     });
   };
 
-  onCategory = category => {
+  onChangeCategory = category => {
     this.setState({
       category
     });
   };
 
   clearState = () => {
-    this.setState(this.initialState, () => {});
+    this.setState(this.initialState);
   };
 
   render() {
@@ -109,21 +109,25 @@ class CreateTransaction extends Component {
             <h2>Enter a transaction</h2>
             <div className="form-container">
               <div className="col-container fifty">
-                <TransactionInput
+                <CurrencyInput
                   label="Transaction:"
                   amount={amount}
-                  onTransaction={this.onTransaction}
+                  onChangeAmount={this.onChangeAmount}
                   onMouseLeaveSanitizeAmount={this.onMouseLeaveSanitizeAmount}
                 />
-                <DateInput label="Date:" onDate={this.onDate} date={date} />
+                <DateInput
+                  label="Date:"
+                  onChangeDate={this.onChangeDate}
+                  date={date}
+                />
               </div>
               <div className="col-container fifty">
                 <CreateCategory
                   onCreateCategory={onCreateCategory}
-                  onCategory={this.onCategory}
+                  onChangeCategory={this.onChangeCategory}
                 />
                 <SelectReact
-                  onCategory={this.onCategory}
+                  onChangeCategory={this.onChangeCategory}
                   selectedCategory={category}
                   categories={categories}
                   key="FormSelect"

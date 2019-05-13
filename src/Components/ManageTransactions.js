@@ -74,7 +74,7 @@ class ManageTransactions extends Component {
       });
   }
 
-  onCreateCategory = (newCategoryName, onCategory) => {
+  onCreateCategory = (newCategoryName, onChangeCategory) => {
     const { categories } = this.state;
     const newCategoryNameLC = newCategoryName.toLowerCase();
 
@@ -86,25 +86,29 @@ class ManageTransactions extends Component {
         return;
       }
     }
-    // Add userInput to array only if it's a new category
-    this.saveCategoryInDatabase(newCategoryNameLC, onCategory);
+    // If it's a new category, convert category name to
+    // initial capital letter and add to array.
+    const capitalLetter = newCategoryNameLC.substr(0, 1).toUpperCase();
+    const newCategoryNameInitCap = capitalLetter.concat(
+      newCategoryNameLC.substr(1)
+    );
+    this.saveCategoryInDatabase(newCategoryNameInitCap, onChangeCategory);
   };
 
-  saveCategoryInDatabase = (newCategoryNameLC, onCategory) => {
+  saveCategoryInDatabase = (newCategoryNameInitCap, onChangeCategory) => {
     axios({
       method: "post",
       url: `${API_SAVE_CATEGORY}`,
       headers: { "content-type": "application/json" },
-      data: { category: newCategoryNameLC }
+      data: { category: newCategoryNameInitCap }
     })
       .then(result => {
         const {
           data: { newId }
         } = result;
-        // this.updateCategoriesState(newId, newCategoryNameLC, onCategory);
         this.loadCategories();
-        const categoryNew = { value: newId, label: newCategoryNameLC };
-        onCategory(categoryNew);
+        const categoryNew = { value: newId, label: newCategoryNameInitCap };
+        onChangeCategory(categoryNew);
       })
       .catch(ex => {
         alert("The category cannot be saved.");

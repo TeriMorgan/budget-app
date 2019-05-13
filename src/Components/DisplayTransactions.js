@@ -15,6 +15,7 @@ class DisplayTransactions extends Component {
       currency: "USD"
     });
 
+    // The initialResults are passed from ManageTransactions.js when it runs loadRecentTransactions.
     const initialResultList = initialResults.map(result => (
       <tr key={result.id}>
         <td>{formatter.format(result.amount)}</td>
@@ -23,6 +24,8 @@ class DisplayTransactions extends Component {
       </tr>
     ));
 
+    // The results are passed from DisplayTransactions.js when a user chooses to filter transactions.
+    // The table with filterResultList is set to display and replaces the table with initialResultList.
     const filterResultList = results.map(result => (
       <tr key={result.id}>
         <td>{formatter.format(result.amount)}</td>
