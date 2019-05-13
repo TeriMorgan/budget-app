@@ -72,7 +72,7 @@
                     if ($success->num_rows > 0) {
                         while($row = $success->fetch_array()) {
                             if($row["category"] === null) {
-                                array_push($resultArray, ["amount" => $row["amount"], "date" => $row["date"], "category" => "uncategorized"]);
+                                array_push($resultArray, ["amount" => $row["amount"], "date" => $row["date"], "category" => "Uncategorized"]);
                             } else {
                                 array_push($resultArray, ["amount" => $row["amount"], "date" => $row["date"], "category" => $row["category"]]);
                             }
