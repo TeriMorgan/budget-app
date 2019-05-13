@@ -80,8 +80,7 @@ img {
 .logo-container {
   display: flex;
   width: 30%;
-  padding: 15px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 label {
@@ -230,5 +229,8 @@ p {
   }
   th {
     font-size: 1em;
+  }
+  .table-text {
+    margin-top: 60px;
   }
 }
