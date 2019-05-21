@@ -1,6 +1,57 @@
 import React, { Component } from "react";
 
+// const { initialResults, results } = this.props;
+
 class DisplayTransactions extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initialResults: this.props.initialResults,
+      results: this.props.results,
+      sortOrder: {}
+    };
+  }
+
+  onClickToggle = (array, key) => {
+    let sortedArray = [];
+    let isAscending = true;
+
+    // On first sort, always ascending
+    if (this.state.sortOrder[key]) {
+      isAscending = !this.state.sortOrder[key];
+    }
+    if (array.length === 1) {
+      sortedArray = array;
+      // Sort for strings
+    } else if (isNaN(array[0][key])) {
+      if (!isAscending) {
+        sortedArray = array.sort(function(a, b) {
+          return b[key].localeCompare(a[key]);
+        });
+      } else {
+        sortedArray = array.sort(function(a, b) {
+          return a[key].localeCompare(b[key]);
+        });
+      }
+      // Sort for numbers
+    } else if (isAscending) {
+      sortedArray = array.sort(function(a, b) {
+        return a[key] - b[key];
+      });
+    } else {
+      sortedArray = array.sort(function(a, b) {
+        return b[key] - a[key];
+      });
+    }
+    this.setState({
+      array: sortedArray,
+      sortOrder: {
+        [key]: isAscending
+      }
+    });
+  };
+
   render() {
     const {
       initialResults,
@@ -43,9 +94,20 @@ class DisplayTransactions extends Component {
           <h2 className="results">Results</h2>
           <table>
             <tr>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Category</th>
+              <th onClick={() => this.onClickToggle(initialResults, "amount")}>
+                Amount
+                <img src="http://terimorgan.com/sortSymbol.png" alt="sort" />
+              </th>
+              <th onClick={() => this.onClickToggle(initialResults, "date")}>
+                Date
+                <img src="http://terimorgan.com/sortSymbol.png" alt="sort" />
+              </th>
+              <th
+                onClick={() => this.onClickToggle(initialResults, "category")}
+              >
+                Category
+                <img src="http://terimorgan.com/sortSymbol.png" alt="sort" />
+              </th>
             </tr>
             {initialResultList}
           </table>
@@ -54,9 +116,18 @@ class DisplayTransactions extends Component {
           <h2 className="results">Results</h2>
           <table>
             <tr>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Category</th>
+              <th onClick={() => this.onClickToggle(results, "amount")}>
+                Amount
+                <img src="http://terimorgan.com/sortSymbol.png" alt="sort" />
+              </th>
+              <th onClick={() => this.onClickToggle(results, "date")}>
+                Date
+                <img src="http://terimorgan.com/sortSymbol.png" alt="sort" />
+              </th>
+              <th onClick={() => this.onClickToggle(results, "category")}>
+                Category
+                <img src="http://terimorgan.com/sortSymbol.png" alt="sort" />
+              </th>
             </tr>
             {filterResultList}
           </table>

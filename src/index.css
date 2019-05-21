@@ -113,7 +113,7 @@ button {
 }
 
 button:hover {
-  background-color: #ea9242;
+  background-color: #85d1fa;
 }
 
 .row-container {
@@ -160,6 +160,15 @@ th {
   color: white;
   font-size: 1.2em;
 }
+th:hover {
+  background-color: #85d1fa;
+}
+
+th > img {
+  width: 12px;
+  margin-left: 5px;
+}
+
 .results {
   font-size: 2em;
 }
@@ -229,6 +238,9 @@ p {
   }
   th {
     font-size: 1em;
+  }
+  th > img {
+    width: 10px;
   }
   .table-text {
     margin-top: 60px;
